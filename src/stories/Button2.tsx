@@ -1,18 +1,27 @@
 import './button2.css';
 
 export interface ButtonProps {
-    /** Is this the principal call to action on the page? */
     primary?: boolean;
-    /** What background color to use */
     backgroundColor?: "#fff" | "#000";
-    /** How large should the button be? */
     size?: 'small' | 'medium' | 'large';
-    /** Button contents */
-    text: string;
-    /** Optional click handler */
+    label: string;
     onClick?: () => void;
 }
 
-export function Button2({text}: ButtonProps) {
-    return (<button className='button'>{text}</button>)
+export function Button2({ label, size = 'medium', backgroundColor, primary = true}: ButtonProps) {
+
+    const textColor = backgroundColor === "#fff" ? "#000" : "#fff";
+    const mode = primary ? 'button--primary' : 'button--secondary';
+
+    return (
+        <button className={['button', `button--${size}`, mode].join(' ')}>
+            {label}
+            <style jsx>
+                {`button{ 
+                background-color: ${backgroundColor};
+                color: ${textColor}
+                }`}
+            </style>
+        </button>
+    )
 }
